@@ -26,14 +26,16 @@ vector2 grav(Body body1, Body body2, int i, int j) {
 	int disty = body1.y - body2.y;
 
 	float g = 10;
+	float s = 10;
 
         struct vector2 gravforce;
 
+
 	cout << "\n\nXDist:\n" << distx << "\nYDist:\n" << disty;
 
-	gravforce.x = 1;
+	gravforce.x = g * (1 / sqrt(pow(distx, 2) * pow(s, 2)));
 
-	gravforce.y = 1;
+	gravforce.y = g * (1 / sqrt(pow(disty, 2) + pow(s, 2)));
 
 	cout << "\n\nXForce:\n" << gravforce.x << "\nYForce:\n" << gravforce.y;
 
@@ -43,9 +45,9 @@ vector2 grav(Body body1, Body body2, int i, int j) {
 int main(void)
 {
 
-	const int screenWidth = 1024;
-	const int screenHeight = 1024;
-	const int n = 1;
+	const int screenWidth = 1000;
+	const int screenHeight = 800;
+	const int n = 50;
 	const int velmult = 3;
 	int i;
 	int j;
@@ -66,7 +68,7 @@ int main(void)
 		body.yvel = 0;
 		body.xvel = 0;
 
-		bodies[i-1] = body;
+		bodies[i] = body;
 	}
 
 	InitWindow(screenWidth, screenHeight, "N-Body Sim");
@@ -104,11 +106,11 @@ int main(void)
 				}
 			}
 
-			//bodies[i].x += body.xvel;
-			//bodies[i].y += body.yvel;
+			bodies[i].x += body.xvel;
+			bodies[i].y += body.yvel;
 
 			//DrawPixel(body.x, body.y, WHITE);
-			DrawCircle(body.x, body.y, body.mass, WHITE);
+			DrawCircle(body.x, body.y, 1, WHITE);
 		}
 
 
