@@ -25,19 +25,25 @@ vector2 grav(Body body1, Body body2, int i, int j) {
 	int distx = body1.x - body2.x;
 	int disty = body1.y - body2.y;
 
-	float g = 10;
-	float s = 10;
+	float g = 1;
+	float s = 1;
 
         struct vector2 gravforce;
+
+	if(distx <= 1 || disty <= 1) {
+		gravforce.x = 0;
+		gravforce.y = 0;
+		return gravforce;
+	};
 
 
 	cout << "\n\nXDist:\n" << distx << "\nYDist:\n" << disty;
 
-	gravforce.x = g * (1 / sqrt(pow(distx, 2) * pow(s, 2)));
+	gravforce.x = (g / distx);
 
-	gravforce.y = g * (1 / sqrt(pow(disty, 2) + pow(s, 2)));
+	gravforce.y = (g / disty);
 
-	cout << "\n\nXForce:\n" << gravforce.x << "\nYForce:\n" << gravforce.y;
+	//cout << "\n\nXForce:\n" << gravforce.x << "\nYForce:\n" << gravforce.y;
 
         return gravforce;
 };
@@ -47,7 +53,7 @@ int main(void)
 
 	const int screenWidth = 1000;
 	const int screenHeight = 800;
-	const int n = 50;
+	const int n = 100;
 	const int velmult = 3;
 	int i;
 	int j;
@@ -92,8 +98,8 @@ int main(void)
 		for(i = 0; i < n; i++)
 		{
 			body = bodies[i];
-			bodies[i].xvel = 0;
-			bodies[i].yvel = 0;
+			//bodies[i].xvel = 0;
+			//bodies[i].yvel = 0;
 
 			for (j = 0; j < n; j++) {
 
@@ -112,7 +118,6 @@ int main(void)
 			//DrawPixel(body.x, body.y, WHITE);
 			DrawCircle(body.x, body.y, 1, WHITE);
 		}
-
 
 		EndDrawing();
 	}
