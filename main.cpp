@@ -25,7 +25,7 @@ vector2 grav(Body body1, Body body2, int i, int j) {
 	float distx = (body1.x - body2.x);
 	float disty = (body1.y - body2.y);
 
-	float dist = sqrt(pow(distx, 2.0) + pow(disty, 2.0));
+	//float dist = sqrt(pow(distx, 2.0) + pow(disty, 2.0));
 
 	float g = 1;
 	float s = 1;
@@ -39,16 +39,18 @@ vector2 grav(Body body1, Body body2, int i, int j) {
 	};
 
 
-	//if (distx == 0 || disty == 0) {
+	if (body1.x < body2.x) {
 
-		cout << "\n\nXDist:\n" << distx << "\nYDist:\n" << disty;
-		cout << "\n\nXForce:\n" << gravforce.x << "\nYForce:\n" << gravforce.y;
+		cout << "\n\n Body 1 (1>2):" << body1.x << " Body 2: " << body2.x << "\n\n";
+		cout << "\n\n Subtracted: " << (body1.x - body2.x) << "\n\n";
+		//cout << "\n\nXDist:\n" << distx << "\nYDist:\n" << disty;
+		//cout << "\n\nXForce:\n" << gravforce.x << "\nYForce:\n" << gravforce.y;
 
-	//}
+	}
 
-	gravforce.x = (g / distx);
+	gravforce.x = -1 * (g / distx);
 
-	gravforce.y = (g / disty);
+	gravforce.y = -1 * (g / disty);
 
         return gravforce;
 };
