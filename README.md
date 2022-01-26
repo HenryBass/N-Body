@@ -1,8 +1,9 @@
 # N-Body
 An N-Body sim!
 
-(WIP)
-
 Using Raylib and C++, I built this gravitational simulation!
+It can run with 1000+ bodies, and at x100+ scale!
 
-(I'll add screenshots and stuff when I finish)
+**PR Welcome**
+
+![The sim running with 1000 bodies](simexp1.png)
