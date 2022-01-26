@@ -48,12 +48,16 @@ int main(void)
 
 	int n;
 	int scale;
+	int seed;
 
 	cout << "Bodies (n): ";
 	cin >> n;
 
 	cout << "Scale Factor: ";
 	cin >> scale;
+
+	cout << "Random Seed: ";
+	cin >> seed;
 
 	const int screenWidth = 1200;
 	const int screenHeight = 800;
@@ -66,7 +70,7 @@ int main(void)
 
 	for(i=0;i<(n-1);i++) {
 
-		srand(i);
+		srand(i + seed);
 
 		Body body;
 
@@ -112,8 +116,7 @@ int main(void)
 			bodies[i].x += body.xvel;
 			bodies[i].y += body.yvel;
 
-			//DrawPixel(body.x, body.y, WHITE);
-			DrawCircle((body.x / scale), (body.y / scale), 1, WHITE);
+			DrawCircle(body.x / (scale), body.y / (scale), 1, WHITE);
 		}
 
 		EndDrawing();
