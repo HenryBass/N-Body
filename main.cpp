@@ -13,7 +13,7 @@ struct vector2 {
 
 class Body {
 	public:
-		float mass;
+
 		float x;
 		float y;
 		float xvel;
@@ -25,32 +25,20 @@ vector2 grav(Body body1, Body body2, int i, int j) {
 	float distx = (body1.x - body2.x);
 	float disty = (body1.y - body2.y);
 
-	//float dist = sqrt(pow(distx, 2.0) + pow(disty, 2.0));
-
-	float g = 1;
-	float s = 1;
+	float g = -1;
 
         struct vector2 gravforce;
 
-	if(distx <= 1 || disty <= 1) {
+	if((distx <= 1 && distx >= -1) || (disty <= 1 && disty >= -1)) {
 		gravforce.x = 0;
 		gravforce.y = 0;
 		return gravforce;
 	};
 
 
-	if (body1.x < body2.x) {
+	gravforce.x = g * (1 / distx);
 
-		cout << "\n\n Body 1 (1>2):" << body1.x << " Body 2: " << body2.x << "\n\n";
-		cout << "\n\n Subtracted: " << (body1.x - body2.x) << "\n\n";
-		//cout << "\n\nXDist:\n" << distx << "\nYDist:\n" << disty;
-		//cout << "\n\nXForce:\n" << gravforce.x << "\nYForce:\n" << gravforce.y;
-
-	}
-
-	gravforce.x = -1 * (g / distx);
-
-	gravforce.y = -1 * (g / disty);
+	gravforce.y = g * (1 / disty);
 
         return gravforce;
 };
@@ -58,9 +46,17 @@ vector2 grav(Body body1, Body body2, int i, int j) {
 int main(void)
 {
 
-	const int screenWidth = 1000;
+	int n;
+	int scale;
+
+	cout << "Bodies (n): ";
+	cin >> n;
+
+	cout << "Scale Factor: ";
+	cin >> scale;
+
+	const int screenWidth = 1200;
 	const int screenHeight = 800;
-	const int n = 100;
 
 	int i;
 	int j;
@@ -74,11 +70,8 @@ int main(void)
 
 		Body body;
 
-		body.x = (int)rand() % screenWidth;
-		body.y = (int)rand() % screenHeight;
-
-		//body.yvel = 0;
-		//body.xvel = 0;
+		body.x = (int)rand() % (screenWidth * scale);
+		body.y = (int)rand() % (screenHeight * scale);
 
 		bodies[i] = body;
 	}
@@ -104,8 +97,6 @@ int main(void)
 		for(i = 0; i < n; i++)
 		{
 			body = bodies[i];
-			//bodies[i].xvel = 0;
-			//bodies[i].yvel = 0;
 
 			for (j = 0; j < n; j++) {
 
@@ -122,7 +113,7 @@ int main(void)
 			bodies[i].y += body.yvel;
 
 			//DrawPixel(body.x, body.y, WHITE);
-			DrawCircle(body.x, body.y, 1, WHITE);
+			DrawCircle((body.x / scale), (body.y / scale), 1, WHITE);
 		}
 
 		EndDrawing();
